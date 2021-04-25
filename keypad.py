@@ -2,15 +2,15 @@
 import RPi.GPIO as GPIO
 import time
 
-L1 = 5
-L2 = 6
-L3 = 13
-L4 = 19
+L1 = 2
+L2 = 3
+L3 = 4
+L4 = 17
 
-C1 = 26
-C2 = 12
-C3 = 16
-C4 = 20
+C1 = 27
+C2 = 22
+C3 = 10
+C4 = 25
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
@@ -43,6 +43,6 @@ try:
         readLine(L2, ["4","5","6","B"])
         readLine(L3, ["7","8","9","C"])
         readLine(L4, ["*","0","#","D"])
-        time.sleep(0.3)
+        time.sleep(0.4)
 except KeyboardInterrupt:
     print("\nApplication stopped!")
