@@ -5,16 +5,17 @@ import logging as log
 import datetime as dt
 from time import sleep
 import paho.mqtt.client as mqtt
-import _thread
+import threading
 
 
 
-def pub(flag):
-    if flag:
-        client.publish("locksmith/detected","True")
-    else:
-        client.publish("locksmith/detected","False")
-    sleep(5)
+def pub():
+    while(True):
+        if len(faces):
+            client.publish("locksmith/detected","True")
+        else:
+            client.publish("locksmith/detected","False")
+        sleep(0.1)
 
 
 cascPath = "haarcascade_frontalface_default.xml"
@@ -28,6 +29,8 @@ client = mqtt.Client()
 client.connect(host="eclipse.usc.edu", port=11000, keepalive=60)
 client.loop_start()
 
+state=1
+
 while True:
     if not video_capture.isOpened():
         print('Unable to load camera.')
@@ -36,13 +39,19 @@ while True:
     # Capture frame-by-frame
     ret, frame = video_capture.read()
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    faces = faceCascade.detectMultiScale(
+    global faces
+    faces= faceCascade.detectMultiScale(
         gray,
         scaleFactor=1.2,
         minNeighbors=5,
         minSize=(30, 30)
     )
-    _thread.start_new_thread(pub,(len(faces),))
+    if state==1:
+        state=0
+    elif state==0:
+        x=threading.Thread(target=pub)
+        x.start()
+        state=2
     
     # Draw a rectangle around the faces
     for (x, y, w, h) in faces:

@@ -22,7 +22,7 @@ def on_message(client, userdata, msg):
     print("on_message: " + msg.topic + " " + str(msg.payload, "utf-8"))
 
 def custom_callback_detected(client, userdata, msg):
-    print("custom_callback_alter: " + msg.topic + " " + str(msg.payload, "utf-8"))
+    print("custom_callback_detected: " + msg.topic + " " + str(msg.payload, "utf-8"))
     #display picture
 
 def custom_callback_password(client, userdata, msg):
