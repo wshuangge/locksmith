@@ -87,15 +87,9 @@ def checkSpecialKeys():
     GPIO.output(L1, GPIO.HIGH)
 
     if (not pressed and GPIO.input(C4) == 1):
-        if input == secretCode:
-            print("Unlocked")
-            time.sleep(10)
-            input=""
-            # TODO: Unlock a door, turn a light on, etc.
-        else:
-            print("Incorrect Password")
-            # TODO: Sound an alarm, send an email, etc.
+        client.publish("locksmith/password",input)
         pressed = True
+        time.sleep(1)
 
     GPIO.output(L3, GPIO.LOW)
 
@@ -121,32 +115,6 @@ def readLine(line, characters):
         input = input + characters[3]
     GPIO.output(line, GPIO.LOW)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
 def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))
     #subscribe to topics of interest here
@@ -164,9 +132,10 @@ def custom_callback_entry(client, userdata, msg):
     print("custom_callback_entry: " + msg.topic + " " + str(msg.payload, "utf-8"))
     global entry
     if(str(msg.payload, "utf-8")=="True"):
-        entry=True
+        print("Entry Granted")
     else:
-        entrt=False
+        print("Leave Before I Call the police")
+    time.sleep(5)
 
 def custom_callback_detected(client, userdata, msg):
     #print("custom_callback_detected: " + msg.topic + " " + str(msg.payload, "utf-8"))
@@ -175,9 +144,6 @@ def custom_callback_detected(client, userdata, msg):
         detected=True
     else:
         detected=False
-
-
-
 
 if __name__ == '__main__':
     #this section is covered in publisher_and_subscriber_example.py
@@ -198,7 +164,7 @@ if __name__ == '__main__':
             while True:
                 print("Password Input:"+input)
                 count+=1
-                if(count>200):
+                if(count>100):
                     print("Operation Time Expired\n")
                     break
                 if keypadPressed != -1:
