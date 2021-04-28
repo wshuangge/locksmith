@@ -125,7 +125,7 @@ def custom_callback_entry(client, userdata, msg):
     global entry
     print(temp)
     textCommand(0x01)
-    print(temp=="True"):
+    print(temp=="True")
     if(str(msg.payload,"utf-8")=="True"):
         print("Entry Granted")
         with lock:
