@@ -120,12 +120,12 @@ def on_message(client, userdata, msg):
     print("on_message: " + msg.topic + " " + str(msg.payload, "utf-8"))
 
 def custom_callback_entry(client, userdata, msg):
-    print("custom_callback_entry: " + msg.topic + " " + str(msg.payload, "utf-8"))
-    global entry
     temp=str(msg.payload, "utf-8")
+    print("custom_callback_entry: " + msg.topic + " " + temp)
+    global entry
     print(temp)
     textCommand(0x01)
-    print((str(msg.payload,"utf-8")=="True"))
+    print(temp=="True"):
     if(str(msg.payload,"utf-8")=="True"):
         print("Entry Granted")
         with lock:
