@@ -1,6 +1,7 @@
 import cv2
 import sys
 import time
+import os
 import logging as log
 import datetime as dt
 from time import sleep
@@ -13,9 +14,11 @@ def pub():
     while(True):
         if len(faces):
             client.publish("locksmith/detected","True")
+            cv2.imwrite('cam.jpg',frame)
+            os.system("echo \"This is the body of the email\" | mail -A \"cam.jpg\" -s \"This is the subject line\" "+addr)
         else:
             client.publish("locksmith/detected","False")
-        sleep(0.1)
+        sleep(2)
 
 
 cascPath = "haarcascade_frontalface_default.xml"
@@ -31,12 +34,16 @@ client.loop_start()
 
 state=1
 
+global addr
+addr=input("Enter email address: ")
+
 while True:
     if not video_capture.isOpened():
         print('Unable to load camera.')
         sleep(5)
         pass
     # Capture frame-by-frame
+    global frame
     ret, frame = video_capture.read()
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     global faces
