@@ -2,15 +2,15 @@
 import RPi.GPIO as GPIO
 import time
 
-L1 = 2
-L2 = 3
-L3 = 4
-L4 = 17
+L1 = 5
+L2 = 6
+L3 = 13
+L4 = 19
 
-C1 = 27
-C2 = 22
-C3 = 10
-C4 = 25
+C1 = 12
+C2 = 16
+C3 = 20
+C4 = 21
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)

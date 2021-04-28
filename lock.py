@@ -6,29 +6,19 @@ import time
 import threading
 import RPi.GPIO as GPIO
 import time
+lock = threading.Lock()
+
+buzzer = 8
 
 L1 = 5
 L2 = 6
 L3 = 13
-L4 = 19
+L4 = 26
 
 C1 = 12
 C2 = 16
-C3 = 20
-C4 = 21
-
-
-
-
-
-
-
-
-
-
-
-
-
+C3 = 24
+C4 = 25
 
 keypadPressed = -1
 
@@ -133,8 +123,19 @@ def custom_callback_entry(client, userdata, msg):
     global entry
     if(str(msg.payload, "utf-8")=="True"):
         print("Entry Granted")
+        with lock:
+            setText("Entry Granted")
     else:
         print("Leave Before I Call the police")
+        with lock:
+            setText("Leave Before the Police Come!")
+        cnt = 0
+        while cnt <= 3:
+            grovepi.digitalWrite(buzzer,1)
+            time.sleep(1)
+            grovepi.digitalWrite(buzzer,0)
+            time.sleep(1)
+            cnt+=1
     time.sleep(5)
 
 def custom_callback_detected(client, userdata, msg):
@@ -157,15 +158,25 @@ if __name__ == '__main__':
     state1=0
     while True:
         print("No Face Detected\n")
+        with lock:
+            setText("No Face Detected\n")
+            setRGB(0,0,0)
         time.sleep(2)
         count=0
         if(detected):
             print("Face Detected\n")
+            with lock:
+                setText("Face Detected\n")
+                setRGB(0,128,64)
             while True:
                 print("Password Input:"+input)
+                with lock:
+                    setText("PWD:"+input)
                 count+=1
                 if(count>100):
                     print("Operation Time Expired\n")
+                    with lock: 
+                        setText("Time Out, Bye!")
                     break
                 if keypadPressed != -1:
                     setAllLines(GPIO.HIGH)
