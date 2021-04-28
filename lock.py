@@ -138,7 +138,6 @@ def custom_callback_entry(client, userdata, msg):
                 grovepi.digitalWrite(buzzer,0)
                 time.sleep(1)
                 cnt+=1
-    time.sleep(5)
 
 def custom_callback_detected(client, userdata, msg):
     #print("custom_callback_detected: " + msg.topic + " " + str(msg.payload, "utf-8"))
