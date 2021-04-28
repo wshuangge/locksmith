@@ -110,7 +110,7 @@ def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))
     #subscribe to topics of interest here
     client.subscribe("locksmith/entry")
-    client.message_callback_add("larrywan/entry",custom_callback_entry)
+    client.message_callback_add("locksmith/entry",custom_callback_entry)
 
     client.subscribe("locksmith/detected")
     client.message_callback_add("locksmith/detected",custom_callback_detected)
