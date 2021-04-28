@@ -120,28 +120,7 @@ def on_message(client, userdata, msg):
     print("on_message: " + msg.topic + " " + str(msg.payload, "utf-8"))
 
 def custom_callback_entry(client, userdata, msg):
-    temp=str(msg.payload, "utf-8")
-    print("custom_callback_entry: " + msg.topic + " " + temp)
-    global entry
-    print(temp)
-    textCommand(0x01)
-    print(temp=="True")
-    if(str(msg.payload,"utf-8")=="True"):
-        print("Entry Granted")
-        with lock:
-            setText_norefresh("Entry Granted")
-    else:
-        print("Leave Before I Call the police")
-        with lock:
-            setText("Leave Before the Police Come!")
-        cnt = 0
-        while cnt <= 3:
-            grovepi.digitalWrite(buzzer,1)
-            time.sleep(1)
-            grovepi.digitalWrite(buzzer,0)
-            time.sleep(1)
-            cnt+=1
-    time.sleep(5)
+    print("try")
 
 def custom_callback_detected(client, userdata, msg):
     #print("custom_callback_detected: " + msg.topic + " " + str(msg.payload, "utf-8"))
