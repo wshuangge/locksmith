@@ -73,7 +73,7 @@ def checkSpecialKeys():
         print("Password Reset");
         pressed = True
         textCommand(0x01)
-        
+
     GPIO.output(L3, GPIO.LOW)
     GPIO.output(L1, GPIO.HIGH)
 
@@ -122,10 +122,11 @@ def on_message(client, userdata, msg):
 def custom_callback_entry(client, userdata, msg):
     print("custom_callback_entry: " + msg.topic + " " + str(msg.payload, "utf-8"))
     global entry
+    textCommand(0x01)
     if(str(msg.payload, "utf-8")=="True"):
         print("Entry Granted")
         with lock:
-            setText("Entry Granted")
+            setText_norefresh("Entry Granted")
     else:
         print("Leave Before I Call the police")
         with lock:
