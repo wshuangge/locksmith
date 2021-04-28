@@ -1,6 +1,7 @@
 
 from grove_rgb_lcd import *
 from grovepi import *
+import grovepi
 import paho.mqtt.client as mqtt
 import time
 import threading
