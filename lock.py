@@ -72,7 +72,8 @@ def checkSpecialKeys():
     if (GPIO.input(C4) == 1):
         print("Password Reset");
         pressed = True
-
+        textCommand(0x01)
+        
     GPIO.output(L3, GPIO.LOW)
     GPIO.output(L1, GPIO.HIGH)
 
@@ -159,24 +160,24 @@ if __name__ == '__main__':
     while True:
         print("No Face Detected\n")
         with lock:
-            setText("No Face Detected\n")
+            setText_norefresh("No Face Detected\n")
             setRGB(0,0,0)
         time.sleep(2)
         count=0
         if(detected):
             print("Face Detected\n")
             with lock:
-                setText("Face Detected\n")
+                setText_norefresh("Face Detected\n")
                 setRGB(0,128,64)
             while True:
                 print("Password Input:"+input)
                 with lock:
-                    setText("PWD:"+input)
+                    setText_norefresh("PWD:"+input)
                 count+=1
                 if(count>100):
                     print("Operation Time Expired\n")
                     with lock: 
-                        setText("Time Out, Bye!")
+                        setText_norefresh("Time Out, Bye!")
                     break
                 if keypadPressed != -1:
                     setAllLines(GPIO.HIGH)
