@@ -131,13 +131,13 @@ def custom_callback_entry(client, userdata, msg):
         print("Leave Before I Call the police")
         with lock:
             setText("Leave Before the Police Come!")
-        cnt = 0
-        while cnt <= 3:
-            grovepi.digitalWrite(buzzer,1)
-            time.sleep(1)
-            grovepi.digitalWrite(buzzer,0)
-            time.sleep(1)
-            cnt+=1
+            cnt = 0
+            while cnt <= 3:
+                grovepi.digitalWrite(buzzer,1)
+                time.sleep(1)
+                grovepi.digitalWrite(buzzer,0)
+                time.sleep(1)
+                cnt+=1
     time.sleep(5)
 
 def custom_callback_detected(client, userdata, msg):
