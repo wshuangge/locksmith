@@ -123,7 +123,8 @@ def custom_callback_entry(client, userdata, msg):
     print("custom_callback_entry: " + msg.topic + " " + str(msg.payload, "utf-8"))
     global entry
     textCommand(0x01)
-    if(str(msg.payload, "utf-8")=="True"):
+    print((str(msg.payload,"utf-8")=="True"))
+    if(str(msg.payload,"utf-8")=="True"):
         print("Entry Granted")
         with lock:
             setText_norefresh("Entry Granted")
@@ -175,7 +176,7 @@ if __name__ == '__main__':
                 with lock:
                     setText_norefresh("PWD:"+input)
                 count+=1
-                if(count>100):
+                if(count>300):
                     print("Operation Time Expired\n")
                     with lock: 
                         setText_norefresh("Time Out, Bye!")
