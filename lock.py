@@ -110,7 +110,7 @@ def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))
     #subscribe to topics of interest here
     client.subscribe("locksmith/entry")
-    client.message_callback_add("larrywan/password",custom_callback_password)
+    client.message_callback_add("larrywan/entry",custom_callback_entry)
 
     client.subscribe("locksmith/detected")
     client.message_callback_add("locksmith/detected",custom_callback_detected)
@@ -119,9 +119,11 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     print("on_message: " + msg.topic + " " + str(msg.payload, "utf-8"))
 
-def custom_callback_password(client, userdata, msg):
-    print("custom_callback_password: " + msg.topic + " " + str(msg.payload, "utf-8"))
+def custom_callback_entry(client, userdata, msg):
+    print("custom_callback_entry: " + msg.topic + " " + str(msg.payload, "utf-8"))
     global entry
+    temp=str(msg.payload, "utf-8")
+    print(temp)
     textCommand(0x01)
     print((str(msg.payload,"utf-8")=="True"))
     if(str(msg.payload,"utf-8")=="True"):
