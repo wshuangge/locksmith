@@ -11,11 +11,15 @@ import threading
 
 
 def pub():
+    flag=60
     while(True):
         if len(faces):
             client.publish("locksmith/detected","True")
             cv2.imwrite('cam.jpg',frame)
-            os.system("echo \"This is the body of the email\" | mail -A \"cam.jpg\" -s \"This is the subject line\" "+addr)
+            if flag==60:
+                os.system("echo \"This is the body of the email\" | mailx -A \"cam.jpg\" -s \"This is the subject line\" "+addr)
+                flag=0
+            flag+=1
         else:
             client.publish("locksmith/detected","False")
         sleep(2)
