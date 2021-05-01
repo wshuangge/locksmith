@@ -15,4 +15,5 @@ lock.py: Enter password on the keypad; press A to submit; press C to clear.
 
 External Code Cited:
 https://maker.pro/raspberry-pi/tutorial/how-to-use-a-keypad-with-a-raspberry-pi-4
+
 https://github.com/shantnu/Webcam-Face-Detect
