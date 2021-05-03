@@ -2,7 +2,7 @@ Contributor: Grace Zhang, Larry Wang
 
 Link to demo video: 
 
-https://drive.google.com/file/d/1MsURIvwi_XImSD3CHjYGAXX5wrqC_AqD/view?usp=drivesdk
+https://drive.google.com/file/d/1wRfoA-vKDTq4VAI-nL-Z2IqQz0eUh24K/view?usp=drivesdk
 
 Execution Instructions: The code is to be executed in the following order.
 
